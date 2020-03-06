@@ -13,22 +13,33 @@ class game{
 		this.canvas.height = 400;
 		// append canvas to page
 		document.body.appendChild(this.canvas);
+		this.board = new board(this);
+		this.d = new dot(this,0,0,"000000");
+		this.startGame();
 	}
 	clearScreen(){
-		this.context.fillStyle = "#000000";
-		this.context.fillRect(0, 0, 200, 400);
+		this.board.backgroundBoard();
+		//this.context.fillStyle = "#000000";
+		//this.context.fillRect(0, 0, 200, 400);
 	}	
+	//startgame
+	//brick fall 1 row per secon
+	startGame(){
+		return setInterval(()=>{
+		},1000);
+	}
 	draw(){
 		//clear before draw object
 		this.clearScreen();		
 		//draw object
+		this.board.draw();
+		this.d.draw();
 		
-
 	}
 	//create loop for game
 	//30% secon draw again
 	loop(){
-		this.draw();		
+		this.draw();				
 		setTimeout(()=>this.loop(),30);
 	}
 	
