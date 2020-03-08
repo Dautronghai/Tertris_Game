@@ -16,47 +16,63 @@ class dot{
 		this.context.fillStyle = this.color;
 		this.context.fillRect(c + 4, r + 4, this.size - 7, this.size - 7);
 	}
+	//==============================
+	//start handling dot move right
 	//if dot move to border right
-	hitRight(){
-		let hit_right = false;
-		if(this.col == NUMCOLS - 1){
-			hit_right = true;
+	hitRight(){		
+		//return true is hit right border
+		return this.col == NUMCOLS - 1;			
+	}
+	//check the dot can move right
+	checkMoveRight(){		
+		if(this.hitRight() || this.game.board.isEmptyCell(this.row,this.col + 1)){
+			return false;
 		}
-		return hit_right;
+		return true;
 	}
 	//update position colum when dot move to right
-	moveRight(){	
-		if(!this.hitRight()){
+	moveRight(){		
+		if(this.checkMoveRight()){
 			this.col++;
 		}
 	}
+	//END handling move right=========================
+	
+	//START handling move left==============
 	//if dot move to border left
 	hitLeft(){
-		let hit_left = false;
-		if(this.col == 0){
-			hit_left = true;
+		return this.col == 0;
+	}
+	checkMoveLeft(){
+		if(this.hitLeft() || this.game.board.isEmptyCell(this.row,this.col - 1)){
+			return false;
 		}
-		return hit_left;
+		return true;
 	}
 	//update position colum dot move to left
-	moveLeft(){	
-		if(!this.hitLeft()){
+	moveLeft(){		
+		if(this.checkMoveLeft()){
 			this.col--;
 		}
 	}
+	//==========END handling move left===========
+	
+	//===========START handling fall================
 	//if dot move to bottom border
 	hitBottom(){
-		let hit_bottom = false;
-		if(this.row == NUMROWS - 1){
-			hit_bottom = true;
+		return this.row == NUMROWS - 1;
+	}
+	checkMoveDown(){
+		if(this.hitBottom() || this.game.board.isEmptyCell(this.row + 1, this.col)){
+			return false;
 		}
-		return hit_bottom;
+		return true;
 	}
 	//update positon colum dot when move up
 	fall(){	
-		if(!this.hitBottom()){
+		if(this.checkMoveDown()){
 			this.row++;
 		}
-		
 	}
+	//==============END handling move down
 }
