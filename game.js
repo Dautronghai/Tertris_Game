@@ -16,11 +16,16 @@ class game{
 		// append canvas to page
 		document.body.appendChild(this.canvas);
 		this.board = new board(this);		
-		this.startGame();
-		this.d = new dot(this,0,0,"#000000");
+		this.startGame();		
+		this.br = new brick(this);
+		//this.br.draw();
 		this.listenKeyboard();
 	}
+	createNewBrick(){
+		this.br = new brick(this);
+	}
 	clearScreen(){
+		this.context.clearRect(0, 0, 200, 400);
 		this.board.backgroundBoard();
 		//this.context.fillStyle = "#000000";
 		//this.context.fillRect(0, 0, 200, 400);
@@ -30,14 +35,16 @@ class game{
 		document.addEventListener('keydown',(event)=>{			
 			switch(event.key){
 				case 'ArrowRight':				
-					this.d.moveRight();
+					this.br.moveRight();
 				break;
 				case 'ArrowLeft':
-					this.d.moveLeft();
+					this.br.moveLeft();
 				break;
 				case 'ArrowUp':
+					this.br.rotateBrick();
 				break;
 				case 'ArrowDown':
+					this.br.brickDown();
 				break;
 				}
 		
@@ -46,23 +53,22 @@ class game{
 	//startgame
 	//brick fall 1 row per secon
 	startGame(){
-		return setInterval(()=>{
-			this.d.fall();
+		return setInterval(()=>{			
+			this.br.fall();
 		},1000);
 	}
 	draw(){
 		//clear before draw object
 		this.clearScreen();				
 		//draw object
-		this.board.draw();
-		this.d.draw();
+		this.board.draw();		
+		this.br.draw();
 		
 	}
 	//create loop for game
 	//30% secon draw again
 	loop(){
-		this.draw();	
-		this.d.draw();		
+		this.draw();			
 		setTimeout(()=>this.loop(),30);
 	}
 	

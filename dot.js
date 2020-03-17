@@ -75,4 +75,13 @@ class dot{
 		}
 	}
 	//==============END handling move down
+	moveDown(){
+		while(this.checkMoveDown()){
+			this.fall();
+		}
+	}
+	
+	
+	
+	
 }
